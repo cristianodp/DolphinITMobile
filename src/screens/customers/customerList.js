@@ -1,10 +1,10 @@
 import React,{Component} from "react"
 import { FlatList, Text } from 'react-native';
-import CustomerListItem from "./CustomerListItem";
+import CustomerListItem from "./customerListItem";
 
 export default class CustomerList extends Component{
 
-    renderItem = ({item}) => <CustomerListItem item={item}/>
+    renderItem = ({item}) => <CustomerListItem item={item} onItemSelected={this.props.onItemSelected}/>
 
     render(){
 
@@ -20,12 +20,3 @@ export default class CustomerList extends Component{
     }
 }
 
-
-/*
-
-style={{width: '100%'}}
-                data={customers}
-                keyExtractor={customers => customers._id}
-                renderItem={this.renderItem}
-
-                */

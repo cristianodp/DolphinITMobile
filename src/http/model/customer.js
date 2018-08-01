@@ -2,7 +2,7 @@ export default class Customer {
 
     constructor(){
         this.name = null;
-        this.type = null;
+        this.type = "PERSON";
         this.description = null;
         this.phone = null;
         this.email = null;
@@ -10,4 +10,7 @@ export default class Customer {
         this.ownerId = null;
     }
 
+    toJson(){
+        return JSON.stringify(this)
+    }
 } 

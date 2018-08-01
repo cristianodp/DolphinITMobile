@@ -4,18 +4,18 @@ import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import { connect } from 'react-redux';
 
 import { addCustomer } from '../../store/customersReducer';
-import Customer from "../../http/model/customer"
+import Item from "../../http/model/item"
 import config from "../../../config"
 
 
-export class CustomerCreate extends Component {
+export class ItemCreate extends Component {
     static navigationOptions = {
-        title: 'New Customer',
+        title: 'New Item',
     };
 
     constructor(props) {
         super(props);
-        let c = new Customer()
+        let c = new Item()
         c.ownerId = config._ownerId
         this.state = { customer: c };
     }
@@ -27,7 +27,7 @@ export class CustomerCreate extends Component {
     }
 
     render() {
-        const { customer, newCustomer } = this.state
+        const { customer } = this.state
         return (
             <View style={styles.container}>
                 <View style={styles.containerInput}>

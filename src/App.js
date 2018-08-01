@@ -11,12 +11,12 @@ import { createBottomTabNavigator } from "react-navigation"
 import { Provider } from 'react-redux';
 import store from './store';
 
-import HomeScreen from "./screens/home/home";
-import CustomersSearchScreen from "./screens/customers/customerSearch";
+import Home from "./screens/home";
+import Customers from "./screens/customers";
 
 const MainTabs = createBottomTabNavigator({
-  Home: HomeScreen,
-  Customers: CustomersSearchScreen,
+  Home: Home,
+  Customers: Customers,
 }, {
     initialRouteName: 'Home',
     navigationOptions: {

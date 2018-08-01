@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 import { View, Text } from "react-native"
 
-import Topbar from "../../components/topbar"
 
 export default class Home extends Component {
+  static navigationOptions = {
+    title: 'Home',
+  };
   constructor(props) {
     super(props);
     this.state = {}
@@ -12,8 +14,8 @@ export default class Home extends Component {
   render() {
     return (
       <View>
-        <Topbar title="Home" />
-        <Text> textInComponent </Text>
+
+        <Text> Home </Text>
       </View>
     );
   }

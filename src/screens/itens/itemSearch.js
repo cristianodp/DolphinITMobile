@@ -6,7 +6,7 @@ import { loadCustomers } from '../../store/customersReducer';
 import CustomerList from "./customerList"
 import ButtonIcon from "../../components/ButtonIcon"
 
-export class customerSearch extends Component {
+export class itemSearch extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Customers',

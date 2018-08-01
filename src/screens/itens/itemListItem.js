@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-export default class CustomerListItem extends Component {
+export default class ItemListItem extends Component {
 
     render() {
-        const { item,onItemSelected,navigation } = this.props;
+        const { item,onItemSelected } = this.props;
         if (item === undefined) return null
         return (
 
@@ -17,9 +17,11 @@ export default class CustomerListItem extends Component {
                     }>
                     <View style={styles.itemContainer}>
                         <View >
-                            <Text>{item.name}</Text>
-                            <Text>{item.phone}</Text>
+                            <Text>{item.title}</Text>
+                            <Text>{item.subtitle}</Text>
+                            <Text>{item.detail}</Text>
                         </View>
+                        
                         <View style={styles.arrow} >
                             <MaterialIcons
                                 name={"chevron-right"}

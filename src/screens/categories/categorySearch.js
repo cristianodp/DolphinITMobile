@@ -20,7 +20,6 @@ export class CategoriesSearch extends Component {
 
   componentDidMount() {
     this.props.loadCategories(this.state.query);
-
     const customer = this.props.navigation.getParam("itemSelected")
     this.setState({ customer: customer })
   }
@@ -34,8 +33,10 @@ export class CategoriesSearch extends Component {
   };
 
   handlerOnItemSelected = item => {
+
     const { navigate } = this.props.navigation;
-    navigate('CategorySearch', { itemSelected: item })
+    navigate('ItemSearch', { categorySelected: item
+        , customerSelected: this.state.customer })
   }
 
   render() {
@@ -51,13 +52,13 @@ export class CategoriesSearch extends Component {
           <Text style={styles.textCustomer}>{customer.name}</Text>
         </View>
         {false ?
-         <TextInput
-              style={styles.searchInput}
-              placeholder={"Search for a specific category"}
-              onChangeText={this.handleSearchChange}
-              onSubmitEditing={this.handleSearchSubmit}
-              returnKeyType="search"
-            />:null
+          <TextInput
+            style={styles.searchInput}
+            placeholder={"Search for a specific category"}
+            onChangeText={this.handleSearchChange}
+            onSubmitEditing={this.handleSearchSubmit}
+            returnKeyType="search"
+          /> : null
         }
         <CategoryList categories={categories} onItemSelected={this.handlerOnItemSelected} />
 
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   conatinerCustomer: {
     paddingBottom: 8,
     borderBottomWidth: 0.5,
-    marginBottom:4,
+    marginBottom: 4,
   },
   textCustomer: {
     fontSize: 18,

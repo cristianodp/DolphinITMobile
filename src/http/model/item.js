@@ -5,6 +5,7 @@ export default class Item {
         this.title = null
         this.subtitle = null
         this.detail = null
+        this.dueDate = null
         this.customerId = null
         this.uplevelId = null
         this.categoryId = null

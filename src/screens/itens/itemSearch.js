@@ -2,20 +2,26 @@ import React, { Component } from "react";
 import { View, ActivityIndicator, TextInput, StyleSheet, Button } from "react-native";
 import { connect } from 'react-redux';
 
-import { loadCustomers } from '../../store/customersReducer';
-import CustomerList from "./customerList"
+import { loadItens } from '../../store/itensReducer';
+import ItemList from "./itemList"
 import ButtonIcon from "../../components/ButtonIcon"
 
-export class itemSearch extends Component {
+export class ItemSearch extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Customers',
+      title: 'Itens',
       headerRight: (
         <ButtonIcon
           iconName="add"
           onPress={() => {
+            const customer = navigation.getParam("customerSelected")
+            const category = navigation.getParam("categorySelected")
+        
+            const  customerId = customer? customer["_id"]: null
+            const  categoryId  = category? category["_id"]: null
+
             const { navigate } = navigation;
-            navigate('CustomerCreate')
+            navigate('ItemCreate',{customerId,categoryId})
           }}
         />
       ),
@@ -27,53 +33,78 @@ export class itemSearch extends Component {
     this.state = { query: null };
   }
 
-  componentDidMount(){
-    this.props.loadCustomers(this.state.query);
+  getSearchItens = (query) =>{
+
+    const customer = this.props.navigation.getParam("customerSelected")
+    const category = this.props.navigation.getParam("categorySelected")
+
+    const  customerId = customer? customer["_id"]: null
+    const  categoryId  = category? category["_id"]: null
+  
+    this.props.loadItens({
+      query: query,
+      customerId: customerId,
+      categoryId: categoryId
+    }
+    );
   }
+
+  componentDidMount() {
+
+    const customer = this.props.navigation.getParam("customerSelected")
+    const category = this.props.navigation.getParam("categorySelected")
+    this.setState({customer:customer,category,category})
+
+    this.getSearchItens(this.state.query);
+  }
+
+
 
   handleSearchChange = query => {
     this.setState({ query });
   };
 
   handleSearchSubmit = () => {
-    this.props.loadCustomers(this.state.query);
+    this.getSearchItens(this.state.query);
+    
   };
 
-  handlerOnItemSelected = item =>{
+  handlerOnItemSelected = item => {
     const { navigate } = this.props.navigation;
-    navigate('CategorySearch',{itemSelected: item})
+    navigate('ItemDetail', { itemSelected: item })
   }
   render() {
-    const { loading, customers } = this.props
+    const { loading, itens } = this.props
     return (
       <View style={styles.container}>
 
         <TextInput
           style={styles.searchInput}
-          placeholder={"Search for a specific customer"}
+          placeholder={"Search for a specific item"}
           onChangeText={this.handleSearchChange}
           onSubmitEditing={this.handleSearchSubmit}
           returnKeyType="search"
         />
         {loading
           ? <ActivityIndicator size="large" color="#000" />
-          : <CustomerList customers={customers} onItemSelected={this.handlerOnItemSelected}></CustomerList>
+          : <ItemList data={itens} onItemSelected={this.handlerOnItemSelected}></ItemList>
         }
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ customers }) => {
+const mapStateToProps = ({ itens }) => {
   return ({
-    loading: customers.loading,
-    customers: customers.customers,
+    loading: itens.loading,
+    itens: itens.itens,
+    newItem: itens.newItem
   })
 }
 
-const mapDispatchToProps = { loadCustomers }
+const mapDispatchToProps = { loadItens }
 
-export default connect(mapStateToProps, mapDispatchToProps)(customerSearch)
+export default connect(mapStateToProps, mapDispatchToProps)(ItemSearch)
 
 const styles = StyleSheet.create({
   container: {

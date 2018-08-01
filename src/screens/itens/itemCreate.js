@@ -3,7 +3,7 @@ import { View, Button, StyleSheet } from "react-native";
 import FloatLabelTextInput from 'react-native-floating-label-text-input';
 import { connect } from 'react-redux';
 
-import { addCustomer } from '../../store/customersReducer';
+import { addItem } from '../../store/itensReducer';
 import Item from "../../http/model/item"
 import config from "../../../config"
 
@@ -17,74 +17,88 @@ export class ItemCreate extends Component {
         super(props);
         let c = new Item()
         c.ownerId = config._ownerId
-        this.state = { customer: c };
+        c.customerId =  this.props.navigation.getParam("customerId")
+        c.categoryId =  this.props.navigation.getParam("categoryId")
+        this.state = { item: c };
     }
 
     handleSaveClick = async () => {
-        const { customer } = this.state;
-        await this.props.addCustomer(customer.toJson());
+        const { item } = this.state;
+        await this.props.addItem(item.toJson());
         this.props.navigation.goBack();
     }
 
     render() {
-        const { customer } = this.state
+        const { item } = this.state
         return (
             <View style={styles.container}>
                 <View style={styles.containerInput}>
                     <FloatLabelTextInput
-                        placeholder={"Name"}
+                        placeholder={"Code"}
                         keyboardType={"default"}
                         onChangeTextValue={(value) => {
-                            const { customer } = this.state
-                            customer.name = value
-                            this.setState({ customer: customer });
+                            const { item } = this.state
+                            item.code = value
+                            this.setState({ item: item });
                         }}
-                        value={customer.name}
+                        value={item.code}
                     />
-
                 </View>
                 <View style={styles.containerInput}>
                     <FloatLabelTextInput
+                        placeholder={"title"}
                         keyboardType={"default"}
-                        placeholder={"Description"}
                         onChangeTextValue={(value) => {
-                            const { customer } = this.state
-                            customer.description = value
-                            this.setState({ customer: customer });
+                            const { item } = this.state
+                            item.title = value
+                            this.setState({ item: item });
                         }}
-                        value={customer.description}
+                        value={item.title}
                     />
+                </View>
 
+                <View style={styles.containerInput}>
+                    <FloatLabelTextInput
+                        placeholder={"Subtitle"}
+                        keyboardType={"default"}
+                        onChangeTextValue={(value) => {
+                            const { item } = this.state
+                            item.subtitle = value
+                            this.setState({ item: item });
+                        }}
+                        value={item.subtitle}
+                    />
                 </View>
 
 
                 <View style={styles.containerInput}>
                     <FloatLabelTextInput
-                        keyboardType={"email-address"}
-                        placeholder={"E-mail"}
+                        placeholder={"Detail"}
+                        keyboardType={"default"}
                         onChangeTextValue={(value) => {
-                            const { customer } = this.state
-                            customer.email = value
-                            this.setState({ customer: customer });
+                            const { item } = this.state
+                            item.detail = value
+                            this.setState({ item: item });
                         }}
-                        value={customer.email}
+                        value={item.detail}
                     />
-
                 </View>
+
 
                 <View style={styles.containerInput}>
                     <FloatLabelTextInput
-                        keyboardType={"phone-pad"}
-                        placeholder={"Phone"}
+                        placeholder={"Due Date"}
+                        keyboardType={"default"}
                         onChangeTextValue={(value) => {
-                            const { customer } = this.state
-                            customer.phone = value
-                            this.setState({ customer: customer });
+                            const { item } = this.state
+                            item.dueDate = value
+                            this.setState({ item: item });
                         }}
-                        value={customer.phone}
+                        value={item.dueDate}
                     />
-
                 </View>
+
+
 
                 <View style={{ marginTop: 16 }}>
                     <Button
@@ -100,16 +114,16 @@ export class ItemCreate extends Component {
     }
 }
 
-const mapStateToProps = ({ customers }) => {
+const mapStateToProps = ({ itens }) => {
     return ({
-      loading: customers.loading,
-      newCustomer: customers.newCustomer,
+        loading: itens.loading,
+        newItem: itens.newItem,
     })
-  }
-  
-  const mapDispatchToProps = { addCustomer }
-  
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerCreate)
+}
+
+const mapDispatchToProps = { addItem }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemCreate)
 
 const styles = StyleSheet.create({
     container: {

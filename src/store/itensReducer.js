@@ -1,43 +1,43 @@
-import {GetCustomers,PutCustomers} from "../http/DorphinAPI";
+import {GetItens,PutItem} from "../http/DorphinAPI";
 
-const FETCH_CUSTOMERS_START = 'customers/FETCH_CUSTOMERS_START';
-const FETCH_CUSTOMERS_END = 'customers/FETCH_CUSTOMERS_END';
-const ADD_CUSTOMERS_START = 'customers/ADD_CUSTOMER_START';
-const ADD_CUSTOMERS_END = 'customers/ADD_CUSTOMER_END';
+const FETCH_ITENS_START = 'itens/FETCH_START';
+const FETCH_ITENS_END = 'itens/FETCH_END';
+const ADD_ITEM_START = 'itens/ADD_START';
+const ADD_ITEM_END = 'itens/ADD_END';
 
 
-export const loadCustomers = q => async dispatch => {
+export const loadItens = q => async dispatch => {
   
-  dispatch({ type: FETCH_CUSTOMERS_START });
-  const res = await GetCustomers(q);
-  const customers = await res.json();
-  console.log(customers)
-  dispatch({ type: FETCH_CUSTOMERS_END, customers });
+  dispatch({ type: FETCH_ITENS_START });
+  const res = await GetItens(q);
+  const itens = await res.json();
+  dispatch({ type: FETCH_ITENS_END, itens });
 };
 
-export const addCustomer = customer => async dispatch => {
-  dispatch({ type: FETCH_CUSTOMERS_START });
-  const  newCustomer = await PutCustomers(customer);
-  dispatch({ type: FETCH_CUSTOMERS_END, newCustomer });
-  await loadCustomers(null);
+export const addItem = item => async dispatch => {
+
+  dispatch({ type: ADD_ITEM_START });
+  const  newItem = await PutItem(item);
+  dispatch({ type: ADD_ITEM_END, newItem });
+  
 };
 
 const initialState = {
     loading: false,
-    customers: [],
-    newCustomer: null
+    itens: [],
+    newItem: null
   };
   
   export default function customersReducer(state = initialState, action) {
     switch (action.type) {
-      case FETCH_CUSTOMERS_START:
+      case FETCH_ITENS_START:
         return { ...state, loading: true };
-      case FETCH_CUSTOMERS_END:
-        return { ...state, loading: false, customers: action.customers };
-      case ADD_CUSTOMERS_START:
-        return { ...state, loading: true, newCustomer: null };
-      case ADD_CUSTOMERS_END:
-        return { ...state, loading: false, newCustomer: action.newCustomer };
+      case FETCH_ITENS_END:
+        return { ...state, loading: false, itens: action.itens };
+      case ADD_ITEM_START:
+        return { ...state, loading: true, newItem: null };
+      case ADD_ITEM_END:
+        return { ...state, loading: false, newItem: action.newItem };
     }
   
     return state;

@@ -14,6 +14,7 @@ export default class CategoryList extends Component{
             <FlatList
                 data={categories}
                 renderItem={this.renderItem}
+        
                 
             />
         )

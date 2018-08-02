@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-import { FlatList, Text } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import ItemListItem from "./itemListItem";
 
 export default class ItemList extends Component{
@@ -8,12 +8,18 @@ export default class ItemList extends Component{
 
     render(){
 
-        const {data} = this.props;
+        const {data,refreshing,handleRefresh} = this.props;
 
         return (
             <FlatList
                 data={data}
                 renderItem={this.renderItem}
+                refreshControl={
+                    <RefreshControl
+                     refreshing={refreshing}
+                     onRefresh={handleRefresh}
+                    />
+                  }
                 
             />
         )

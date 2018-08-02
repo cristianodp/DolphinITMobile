@@ -57,7 +57,10 @@ export class customerSearch extends Component {
         />
         {loading
           ? <ActivityIndicator size="large" color="#000" />
-          : <CustomerList customers={customers} onItemSelected={this.handlerOnItemSelected}></CustomerList>
+          : <CustomerList customers={customers} 
+              onItemSelected={this.handlerOnItemSelected} 
+              refreshing={loading}
+              handleRefresh={this.handleSearchSubmit}></CustomerList>
         }
       </View>
     );

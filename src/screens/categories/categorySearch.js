@@ -36,7 +36,9 @@ export class CategoriesSearch extends Component {
 
     const { navigate } = this.props.navigation;
     navigate('ItemSearch', { categorySelected: item
-        , customerSelected: this.state.customer })
+        , customerSelected: this.state.customer
+       , typeList:"itens"
+       , typeSource:"loadItens"  })
   }
 
   render() {

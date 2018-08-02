@@ -38,7 +38,6 @@ export const PutItem = async (item) => {
     });
 }
 
-
 export const GetItens = async (p) => {
 
     const {query,customerId,categoryId} = p
@@ -47,3 +46,32 @@ export const GetItens = async (p) => {
     return await fetch(url);
 }
 
+export const GetItensExpiredCount = async () => {
+    const url = `${config._domain}itens/expiredCount`
+    return await fetch(url);
+}
+
+export const GetItensWarinigCount = async () => {
+    const url = `${config._domain}itens/warningCount`
+    return await fetch(url);
+}
+
+export const GetItensNormalCount = async () => {
+    const url = `${config._domain}itens/normalCount`
+    return await fetch(url);
+}
+
+export const GetItensExpired = async () => {
+    const url = `${config._domain}itens/expired`
+    return await fetch(url);
+}
+
+export const GetItensWarinig = async () => {
+    const url = `${config._domain}itens/warning`
+    return await fetch(url);
+}
+
+export const GetItensNormal = async () => {
+    const url = `${config._domain}itens/normal`
+    return await fetch(url);
+}
